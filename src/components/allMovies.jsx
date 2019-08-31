@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { Like } from '../common/like'
 import { getMovies } from '../services/fakeMovieService';
 import { Pagination } from "../common/pagination";
 import { ListGroup } from "../common/listGroup";
 import { getGenres } from "../services/fakeGenreService";
+import { MoviesTable } from "./moviesTable";
 export default class AllMovies extends Component {
 
     state = {
@@ -17,65 +17,49 @@ export default class AllMovies extends Component {
         // movies:getMovies().slice(0,4)
     };
     componentDidMount() {
-        this.setState({ allMovies: getMovies(), allGenres: [{ _id: "5b21ca3eeb7f6fbccd471810", name: "All Genres" },...getGenres()] })
+        this.setState({ allMovies: getMovies(), allGenres: [{ _id: "5b21ca3eeb7f6fbccd471810", name: "All Genres" }, ...getGenres()] })
     }
     // movies=this.state.allMovies.filter(movie=>this.state.allMovies.indexOf(movie)<=this.state.pageSize-1);
+
     render() {
 
         const { pageSize, currentPage, start, end, genreName, allGenres } = this.state;
-        const movies = this.state.allMovies.slice(start, end);
-        const { length: count } = this.state.allMovies;
-        if (count === 0) {
-            return <h3 style={{ textAlign: 'center' }}>No Movie in the database</h3>
-        }
+        const filteredGenres = genreName !== 'All Genres' ?
+            this.state.allMovies.filter(genres => genres.genre.name === genreName) : this.state.allMovies;
+        const movies = filteredGenres.slice(start, end);
+        const count = filteredGenres.length;
+        // if (count === 0) {
+        //     return (
+        //     <h5 style={{ textAlign: 'center' }}>No Movie in the database</h5>
+        //     );
+        // }
 
         return (
             <div>
                 <div>
-                    <h5 style={{ textAlign: 'center' }}>Showing {count} movies in the database</h5>
+
+                    <h5 style={{ textAlign: 'center' }}>
+                        {count === 0 ?
+                            '' : 'Showing ' + count + ' movies in the database'}</h5>
                 </div>
                 <div className='row'>
-                    <div className='col-md-3 col-sm-4'>
-                        <ListGroup handleList={this.handleGroup} genreName={genreName} allGenres={allGenres} />
-                    </div>
-                    <div className='col-md-9  col-sm-8'>
+                    {
+                        genreName === 'All Genres' && count === 0 ?
+                            <h4 className='col-12' style={{ textAlign: "center" }}>No Movie in the database</h4> :
+                            <div className='col-md-3 col-sm-4'>
+                                <ListGroup handleList={this.handleGroup} genreName={genreName} allGenres={allGenres} />
 
-                        <table className="table">
-                            <thead>
-                                <tr>
-                                    <th>Title</th>
-                                    <th>Genre</th>
-                                    <th>Stock</th>
-                                    <th>Rate</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
+                            </div>
+                    }
+                    <div className='col-md-9  col-sm-8' style={{ textAlign: "center" }}>
 
-                                    movies.map(movie =>
-                                        <tr key={movie._id}>
-                                            <td>
-                                                {movie.title}
-                                            </td>
-                                            <td>
-                                                {movie.genre.name}
-                                            </td>
-                                            <td>
-                                                {movie.numberInStock}
-                                            </td>
-                                            <td>
-                                                {movie.dailyRentalRate}
-                                            </td>
-                                            <td>
-                                                <Like movie={movie.liked} onClick={() => this.handleLike(movie)} />
-                                            </td>
-                                            <td>
-                                                {this.delete(movie._id)}
-                                            </td>
-                                        </tr>
-                                    )}
-                            </tbody>
-                        </table>
+                        {
+                            genreName === 'All Genres' && count === 0 ? '' :
+                                (count === 0 ?
+                                    <h4>No {genreName} Movie in the database</h4> :
+                                    <MoviesTable movies={movies} onSort={this.handelSort} onDelete={this.delete} onLike={this.handleLike} />)
+                        }
+
                         <Pagination itemCount={count} pageSize={pageSize} currentPage={currentPage}
                             onPageChange={this.handlePageChange} />
                     </div>
@@ -83,11 +67,14 @@ export default class AllMovies extends Component {
             </div>
         );
     }
-    handleGroup = (list) => {
 
-        const allMovies = list !== 'All Genres' ?
-            getMovies().filter(genres => genres.genre.name === list) : getMovies();
-        this.setState({ genreName: list, allMovies });
+    handelSort = (sortData) => {
+        console.log(sortData);
+    }
+    handleGroup = (genreName) => {
+
+
+        this.setState({ genreName: genreName });
     }
     handlePageChange = (page) => {
         this.setState({
@@ -104,13 +91,13 @@ export default class AllMovies extends Component {
         this.setState({ allMovies });
     }
 
-    delete(id) {
+    delete = (id) => {
         return (
             <button onClick={() => this.removeItem(id)} className="btn btn-danger btn-sm">Delete</button>
         )
     }
     removeItem = (id) => {
-        this.setState({ allMovies: this.state.allMovies.filter(movie => movie._id !== id) })
+        this.setState({ allMovies: this.state.allMovies.filter(movie => movie._id !== id) });
     };
 
 }
