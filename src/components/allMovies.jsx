@@ -14,6 +14,8 @@ export default class AllMovies extends Component {
         start: 0,
         end: 4,
         genreName: 'All Genres',
+        sortBy: 'title',
+        sortOrder: 'asc',
         // movies:getMovies().slice(0,4)
     };
     componentDidMount() {
@@ -23,16 +25,24 @@ export default class AllMovies extends Component {
 
     render() {
 
-        const { pageSize, currentPage, start, end, genreName, allGenres } = this.state;
+        const { pageSize, currentPage, start, end, genreName, allGenres, sortBy, sortOrder } = this.state;
         const filteredGenres = genreName !== 'All Genres' ?
             this.state.allMovies.filter(genres => genres.genre.name === genreName) : this.state.allMovies;
+
+        this.state.sortOrder === 'asc' ?
+            (this.state.allMovies.sort(function (a, b) {
+
+                if (a[sortBy] > b[sortBy]) return 1;
+                if (a[sortBy] < b[sortBy]) return -1;
+                return 0;
+            }))
+            : this.state.allMovies.sort(function (a, b) {
+                if (a[sortBy] < b[sortBy]) return 1;
+                if (a[sortBy] > b[sortBy]) return -1;
+                return 0;
+            });
         const movies = filteredGenres.slice(start, end);
         const count = filteredGenres.length;
-        // if (count === 0) {
-        //     return (
-        //     <h5 style={{ textAlign: 'center' }}>No Movie in the database</h5>
-        //     );
-        // }
 
         return (
             <div>
@@ -57,7 +67,7 @@ export default class AllMovies extends Component {
                             genreName === 'All Genres' && count === 0 ? '' :
                                 (count === 0 ?
                                     <h4>No {genreName} Movie in the database</h4> :
-                                    <MoviesTable movies={movies} onSort={this.handelSort} onDelete={this.delete} onLike={this.handleLike} />)
+                                    <MoviesTable movies={movies} onSort={this.handelSort} onDelete={this.delete} onLike={this.handleLike} sortOrder={sortOrder} />)
                         }
 
                         <Pagination itemCount={count} pageSize={pageSize} currentPage={currentPage}
@@ -68,11 +78,12 @@ export default class AllMovies extends Component {
         );
     }
 
-    handelSort = (sortData) => {
-        console.log(sortData);
+    handelSort = (sortBy) => {
+        sortBy = (sortBy === 'genre' ? ['genre']['name'] : sortBy);
+        const sortOrder = this.state.sortOrder === 'asc' ? 'desc' : 'asc';
+        this.setState({ sortBy, sortOrder });
     }
     handleGroup = (genreName) => {
-
 
         this.setState({ genreName: genreName });
     }
