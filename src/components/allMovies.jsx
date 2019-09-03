@@ -46,11 +46,10 @@ export default class AllMovies extends Component {
 
         return (
             <div>
+
                 <div>
 
-                    <h5 style={{ textAlign: 'center' }}>
-                        {count === 0 ?
-                            '' : 'Showing ' + count + ' movies in the database'}</h5>
+
                 </div>
                 <div className='row'>
                     {
@@ -62,7 +61,9 @@ export default class AllMovies extends Component {
                             </div>
                     }
                     <div className='col-md-9  col-sm-8' style={{ textAlign: "center" }}>
-
+                        <p>
+                            {count === 0 ?
+                                '' : 'Showing ' + count + ' movies in the database'}</p>
                         {
                             genreName === 'All Genres' && count === 0 ? '' :
                                 (count === 0 ?

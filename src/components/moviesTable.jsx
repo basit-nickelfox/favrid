@@ -1,5 +1,6 @@
 import React from 'react';
 import { Like } from '../common/like';
+import { Link } from 'react-router-dom';
 export const MoviesTable = (props) => {
     const { movies, onDelete, onLike, onSort, sortOrder } = props;
 
@@ -12,6 +13,8 @@ export const MoviesTable = (props) => {
                     <th onClick={() => onSort('genre')}>Genre <i className={sortIcon()} /></th>
                     <th onClick={() => onSort('numberInStock')}>Stock <i className={sortIcon()} /></th>
                     <th onClick={() => onSort('dailyRentalRate')}>Rate<i className={sortIcon()} /></th>
+                    <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -20,7 +23,7 @@ export const MoviesTable = (props) => {
                     movies.map(movie =>
                         <tr key={movie._id}>
                             <td>
-                                {movie.title}
+                              <Link to={`/movie/${movie._id}`}>{movie.title}</Link> 
                             </td>
                             <td>
                                 {movie.genre.name}
