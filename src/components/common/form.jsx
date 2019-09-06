@@ -31,11 +31,11 @@ class Form extends Component {
       <button className="btn btn-primary" disabled={Object.keys(this.state.errors).length === 0 ? false : true}>{label}</button>
     );
   }
-  renderInput(name,label,type='text') {
+  renderInput(name,label,type='text',active=false) {
     const { errors, data } = this.state;
     return (
 
-      <Input type={type} name={name} label={label} error={errors[name]} value={data[name]} onChange={this.handleChange} />
+      <Input active={active} type={type} name={name} label={label} error={errors[name]} value={data[name]} onChange={this.handleChange} />
     );
   }
 }

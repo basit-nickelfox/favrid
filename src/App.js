@@ -7,13 +7,15 @@ import Rentals from './components/rentals';
 import NotFound from './components/notFound';
 import MovieForm from "./components/movieForm";
 import LoginForm from "./components/loginForm";
+import RegisterForm from "./components/registerForm";
 // import './App.css';
 export default class App extends Component {
   render() {
     return (
-      <main className="">
+      <main>
         <Navbar />
         <Switch>
+          <Route path='/register' component={RegisterForm} />
           <Route path='/login' component={LoginForm} />
           <Route path='/movies' component={AllMovies} />
           <Route path='/customers' component={Customers} />

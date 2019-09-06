@@ -1,13 +1,16 @@
 import React from 'react';
 import Form from './common/form';
-class LoginForm extends Form {
+class RegisterForm extends Form {
     state = {
-        data: {
-            username: "",
-            password: ""
-        },
-        errors: {}
-    };
+         data:{
+             email:'',
+             password:'',
+             username:''
+         },
+         errors:{}
+    }
+
+
     validateProperty = ({ name, value }) => {
 
         if (name === 'username') {
@@ -21,6 +24,12 @@ class LoginForm extends Form {
                 return 'Password is required';
             }
         }
+        if (name === 'email') {
+
+            if ((value.trim() === '')) {
+                return 'email is required';
+            }
+        }
     }
     validate = () => {
 
@@ -31,6 +40,9 @@ class LoginForm extends Form {
         }
         if (data.password.trim() === "") {
             errors.password = 'Password is required';
+        }
+        if (data.email.trim() === "") {
+            errors.email = 'Email is required';
         }
         return Object.keys(errors).length === 0 ? null : errors;
 
@@ -47,14 +59,15 @@ class LoginForm extends Form {
             <div className="container">
                 <div className="row">
                     <div className="col-lg col-md-3  col-sm-2 "></div>
-                    <div className="col-lg col-md col-sm jumbotron mt-5">
+                    <div className="col-lg col-md col-sm jumbotron mt-2">
 
-                        <h1 style={{ fontWeight: "bold" }} className='mb-3'>Login</h1>
+                        <h1 style={{ fontWeight: "bold" }} className='mb-3'>Register</h1>
                         <form onSubmit={this.handleSubmit}>
 
-                            {this.renderInput('username', 'Username','text',true)}
+                            {this.renderInput('email', 'Email','email',true)}
                             {this.renderInput('password', 'Password', 'password')}
-                            {this.renderButton("Login")}
+                            {this.renderInput('username', 'Username')}
+                            {this.renderButton("Register")}
                         </form>
                     </div>
                     <div className="col-lg col-md-3 col-sm-2"></div>
@@ -64,4 +77,4 @@ class LoginForm extends Form {
         );
     }
 }
-export default LoginForm;
+export default RegisterForm;

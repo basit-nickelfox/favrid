@@ -45,7 +45,7 @@ export default class AllMovies extends Component {
         const count = filteredGenres.length;
 
         return (
-            <div>
+            <div className="container">
 
                 <div>
 
