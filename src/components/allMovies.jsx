@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { getMovies } from '../services/fakeMovieService';
-import { Pagination } from "../common/pagination";
-import { ListGroup } from "../common/listGroup";
+import {Pagination} from './common/pagination'
+import { ListGroup } from "./common/listGroup";
 import { getGenres } from "../services/fakeGenreService";
 import { MoviesTable } from "./moviesTable";
 export default class AllMovies extends Component {

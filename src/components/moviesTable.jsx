@@ -1,5 +1,5 @@
 import React from 'react';
-import { Like } from '../common/like';
+import { Like } from './common/like';
 import { Link } from 'react-router-dom';
 export const MoviesTable = (props) => {
     const { movies, onDelete, onLike, onSort, sortOrder } = props;
