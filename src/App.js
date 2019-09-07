@@ -17,11 +17,12 @@ export default class App extends Component {
         <Switch>
           <Route path='/register' component={RegisterForm} />
           <Route path='/login' component={LoginForm} />
+          <Route path='/movies/new' component={MovieForm} />
+          <Route path='/movie/:id?' component={MovieForm} />
           <Route path='/movies' component={AllMovies} />
           <Route path='/customers' component={Customers} />
           <Route path='/not-found' component={NotFound} />
           <Route path='/rentals' component={Rentals} />
-          <Route path='/movie/:id?' component={MovieForm} />
           <Redirect from='/' exact to='/movies' />
           <Redirect to='/not-found' />
         </Switch>

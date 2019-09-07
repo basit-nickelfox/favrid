@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { getMovies } from '../services/fakeMovieService';
-import {Pagination} from './common/pagination'
+import { Pagination } from './common/pagination'
 import { ListGroup } from "./common/listGroup";
 import { getGenres } from "../services/fakeGenreService";
 import { MoviesTable } from "./moviesTable";
+import { Link } from "react-router-dom";
 export default class AllMovies extends Component {
 
     state = {
@@ -22,7 +23,7 @@ export default class AllMovies extends Component {
         this.setState({ allMovies: getMovies(), allGenres: [{ _id: "5b21ca3eeb7f6fbccd471810", name: "All Genres" }, ...getGenres()] })
     }
     // movies=this.state.allMovies.filter(movie=>this.state.allMovies.indexOf(movie)<=this.state.pageSize-1);
-
+     
     render() {
 
         const { pageSize, currentPage, start, end, genreName, allGenres, sortBy, sortOrder } = this.state;
@@ -32,13 +33,13 @@ export default class AllMovies extends Component {
         this.state.sortOrder === 'asc' ?
             (this.state.allMovies.sort(function (a, b) {
 
-                if (a[sortBy] > b[sortBy]) return 1;
-                if (a[sortBy] < b[sortBy]) return -1;
+                if (a[sortBy].toUpperCase() > b[sortBy].toUpperCase()) return 1;
+                if (a[sortBy].toUpperCase() < b[sortBy].toUpperCase()) return -1;
                 return 0;
             }))
             : this.state.allMovies.sort(function (a, b) {
-                if (a[sortBy] < b[sortBy]) return 1;
-                if (a[sortBy] > b[sortBy]) return -1;
+                if (a[sortBy].toUpperCase() < b[sortBy].toUpperCase()) return 1;
+                if (a[sortBy].toUpperCase() > b[sortBy].toUpperCase()) return -1;
                 return 0;
             });
         const movies = filteredGenres.slice(start, end);
@@ -60,10 +61,14 @@ export default class AllMovies extends Component {
 
                             </div>
                     }
-                    <div className='col-md-9  col-sm-8' style={{ textAlign: "center" }}>
+                    <div className='col-md-9  col-sm-8' style={{ textAlign: "left" }}>
+                      <Link to='/movies/new'   className="btn btn-primary mr-5 mb-2" style={{ float: 'right' }}>New Movie</Link> 
                         <p>
+
                             {count === 0 ?
-                                '' : 'Showing ' + count + ' movies in the database'}</p>
+                                '' : 'Showing ' + count + ' movies in the database'}
+
+                        </p>
                         {
                             genreName === 'All Genres' && count === 0 ? '' :
                                 (count === 0 ?
@@ -76,8 +81,12 @@ export default class AllMovies extends Component {
                     </div>
                 </div>
             </div>
+            
         );
+        
     }
+
+    
 
     handelSort = (sortBy) => {
         sortBy = (sortBy === 'genre' ? ['genre']['name'] : sortBy);

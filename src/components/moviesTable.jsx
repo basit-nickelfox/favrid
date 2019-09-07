@@ -6,7 +6,7 @@ export const MoviesTable = (props) => {
 
     const sortIcon = () => sortOrder === 'asc' ? 'fa fa-sort-asc' : 'fa fa-sort-desc';
     return (
-        <table className="table">
+        <table className="table"> 
             <thead>
                 <tr>
                     <th onClick={() => onSort('title')}>Title <i className={sortIcon()} /></th>

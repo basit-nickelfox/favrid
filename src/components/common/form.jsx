@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Input from './input';
+import Select from './select';
 class Form extends Component {
   state = {
     data: {},
@@ -10,10 +11,10 @@ class Form extends Component {
     const errorMessage = this.validateProperty(input);
     if (errorMessage) {
       errors[input.name] = errorMessage;
+     
     } else {
       delete errors[input.name];
     }
-
     const data = { ...this.state.data };
     data[input.name] = input.value;
     this.setState({ data, errors });
@@ -36,6 +37,13 @@ class Form extends Component {
     return (
 
       <Input active={active} type={type} name={name} label={label} error={errors[name]} value={data[name]} onChange={this.handleChange} />
+    );
+  }
+  renderSelect(name,label) {
+    const { errors, data } = this.state;
+    return (
+
+      <Select  name={name} label={label} error={errors[name]} value={data[name]} onChange={this.handleChange} />
     );
   }
 }

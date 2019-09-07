@@ -10,7 +10,7 @@ const Input = ({ label, error, name,active, ...rest }) => {
                 name={name}
 
                 id={name}
-                
+        
                 autoFocus={active && 'autoFocus'}
 
                 className="form-control" />
