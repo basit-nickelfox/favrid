@@ -1,3 +1,22 @@
+# browse movies
+This Application is made in React.js<br>
+# Here are the screen shots of the Application<br><br>
+<p align="left">
+ <img src="src/screenshots/home.png" height="400">
+  <img src="screenshots/adminDashboard.png" height="400">
+  <img src="screenshots/driverslist.png" height="400">
+  <img src="screenshots/addNewDriver.png" height="400">
+
+  <img src="screenshots/driversEdit.png" height="400">
+ <img src="screenshots/driverValidation.png" height="400">
+ 
+ 
+</p>
+
+
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
