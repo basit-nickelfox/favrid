@@ -3,12 +3,13 @@ This Application is made in React.js<br>
 # Here are the screen shots of the Application<br><br>
 <p align="left">
  <img src="src/screenshots/home.png" height="400">
-  <img src="screenshots/adminDashboard.png" height="400">
-  <img src="screenshots/driverslist.png" height="400">
-  <img src="screenshots/addNewDriver.png" height="400">
+  <img src="src/screenshots/createNew.png" height="400">
+  <img src="src/screenshots/edit.png" height="400">
+  <img src="src/screenshots/movieValidation.png" height="400">
 
-  <img src="screenshots/driversEdit.png" height="400">
- <img src="screenshots/driverValidation.png" height="400">
+ <img src="src/screenshots/paginate.png" height="400">
+ <img src="src/screenshots/search.png" height="400">
+ <img src="src/screenshots/sidemenu.png" height="400">
  
  
 </p>
