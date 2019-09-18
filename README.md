@@ -1,8 +1,8 @@
 # browse movies
 This Application is made in React.js<br>
-#Here are the screen shots of the Application<br><br>
+# Here are the screen shots of the Application<br><br>
 <p align="left">
- <img src="screenshots/home.png" height="400">
+ <img src="src/screenshots/home.png" height="400">
   <img src="screenshots/adminDashboard.png" height="400">
   <img src="screenshots/driverslist.png" height="400">
   <img src="screenshots/addNewDriver.png" height="400">
